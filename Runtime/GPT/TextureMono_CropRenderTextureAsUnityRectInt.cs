@@ -3,7 +3,6 @@ using UnityEngine.Events;
 
 
 
-using Eloi.WatchAndDate;
 using UnityEngine;
 
 namespace Eloi.TextureUtility
@@ -24,7 +23,7 @@ namespace Eloi.TextureUtility
         private int m_currentWidth = -1;
         private int m_currentHeight = -1;
 
-        public WatchAndDateTimeActionResult m_timeToProcess = new WatchAndDateTimeActionResult();
+        public Texture_WatchAndDateTimeObserver m_timeToProcess = new Texture_WatchAndDateTimeObserver();
         void Update()
         {
             m_timeToProcess.StartCounting();

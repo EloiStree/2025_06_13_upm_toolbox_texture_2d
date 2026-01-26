@@ -2,8 +2,6 @@ using UnityEngine.Events;
 
 
 
-
-using Eloi.WatchAndDate;
 using UnityEngine;
 using System;
 
@@ -34,7 +32,7 @@ namespace Eloi.TextureUtility
         public int m_cropWidth = 0;
         public int m_cropHeight = 0;
 
-        public WatchAndDateTimeActionResult m_timeToProcess = new WatchAndDateTimeActionResult();
+        public Texture_WatchAndDateTimeObserver m_timeToProcess = new Texture_WatchAndDateTimeObserver();
 
         void Update()
         {

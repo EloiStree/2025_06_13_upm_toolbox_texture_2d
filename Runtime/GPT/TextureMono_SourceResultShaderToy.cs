@@ -1,6 +1,5 @@
 
 using System;
-using Eloi.WatchAndDate;
 using UnityEngine.Events;
 
 namespace Eloi.TextureUtility
@@ -16,7 +15,7 @@ namespace Eloi.TextureUtility
         public RenderTexture m_result;
         public UnityEvent<RenderTexture> m_onCreated;
         public UnityEvent<RenderTexture> m_onUpdated;
-        public WatchAndDateTimeActionResult m_computeTime;
+        public Texture_WatchAndDateTimeObserver m_computeTime;
         public float m_mousePercentX;
         public float m_mousePercentY;
         public float[] m_sounds= new float[0];

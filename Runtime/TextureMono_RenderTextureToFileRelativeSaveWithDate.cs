@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 
 namespace Eloi.TextureUtility {
+
     public class TextureMono_RenderTextureToFileRelativeSaveWithDate : MonoBehaviour
     {
-
         public RenderTexture m_renderTexture;
         public int m_width = -1;
         public int m_height = -1;
@@ -12,9 +12,23 @@ namespace Eloi.TextureUtility {
         public int m_bytesCountsRGBA = -1;
         public int m_bytesCountsRGB = -1;
         public string m_dateFormat = "yyyy_MM_dd_HH_mm_ss";
-
         public string m_permanentPathRelativeFolder = "SavedImages";
-       
+
+        [ContextMenu("Remove Image Folder")]
+        public void RemoveImageFolder()
+        {
+            string path = System.IO.Path.Combine(Application.persistentDataPath, m_permanentPathRelativeFolder);
+            if (System.IO.Directory.Exists(path))
+            {
+                System.IO.Directory.Delete(path, true);
+            }
+        }
+
+        [ContextMenu("Open Peristent Data Folder")]
+        public void OpenPeristentDataFolder()
+        {
+            UnityEngine.Application.OpenURL(Application.persistentDataPath);
+        }
         public void SetRenderTexture(RenderTexture renderTexture)
         {
             m_renderTexture = renderTexture;
@@ -37,7 +51,6 @@ namespace Eloi.TextureUtility {
         }
         public bool m_mipmap = false;
         public bool m_linear = false;
-
 
         [ContextMenu("Open Permanent Folder")]
         public void OpenPermanentFolder()

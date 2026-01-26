@@ -1,23 +1,17 @@
-
 using UnityEngine;
-
 namespace Eloi.PongTracking
 {
     public class TextureMono_SetMaterialsAndRendererWithTexture : MonoBehaviour
     {
         public Renderer [] m_renderer;
         public Material[] m_material;
-
         public void Reset()
         {
             m_renderer = GetComponentsInChildren<Renderer>(true);
           
         }
-
         public void SetTexture(Texture texture)
         {
-
-            
             if (m_renderer == null || m_material == null)
             {
                 return;
