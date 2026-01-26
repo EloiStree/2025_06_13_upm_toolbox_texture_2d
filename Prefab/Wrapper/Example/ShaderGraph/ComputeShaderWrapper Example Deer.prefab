@@ -1,0 +1,205 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4819748878696154974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5348238831541135953}
+  - component: {fileID: 6074617054864040614}
+  m_Layer: 0
+  m_Name: Compute Shader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5348238831541135953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819748878696154974}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5668238862438813301}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6074617054864040614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819748878696154974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 552695eb436569f469ed2a11c4b5482c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: be.elab.texturetoolbox::Eloi.TextureUtility.TextureMono_ComputeShaderSourceToResultWH
+  m_useTheComputeShader: 1
+  m_computeShaderToApply: {fileID: 7200000, guid: 5bae9a1e4b30e6d4e835c66b41b3a5ca, type: 3}
+  m_source: {fileID: 0}
+  m_result: {fileID: 0}
+  m_onCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onUpdated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2452388518522030350}
+        m_TargetAssemblyTypeName: Eloi.TextureUtility.TextureMono_ProcessRenderTextureManualWrapper,
+          be.elab.texturetoolbox
+        m_MethodName: SetResultCallback
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_computeTime:
+    m_watchTimeInTick: 0
+    m_watchTimeInMilliseconds: 0
+    m_dateTimeInTick: 0
+    m_dateTimeInMilliseconds: 0
+    m_events:
+      m_watchTicks:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 2452388518522030350}
+            m_TargetAssemblyTypeName: Eloi.TextureUtility.TextureMono_ProcessRenderTextureManualWrapper,
+              be.elab.texturetoolbox
+            m_MethodName: SetLastProcessTimeInTicksEstimation
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      m_dateTimeTicks:
+        m_PersistentCalls:
+          m_Calls: []
+  m_useUpdate: 0
+  m_useOnEnable: 1
+  m_ignoreException: 0
+--- !u!1 &4826515528481715350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5668238862438813301}
+  - component: {fileID: 2452388518522030350}
+  m_Layer: 0
+  m_Name: ComputeShaderWrapper Example Deer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5668238862438813301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4826515528481715350}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5348238831541135953}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2452388518522030350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4826515528481715350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb244da87475014689e6c701a9c8016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: be.elab.texturetoolbox::Eloi.TextureUtility.TextureMono_ProcessRenderTextureManualWrapper
+  m_onSetGivenTexture:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onResultProcessed:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onStartUsing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4819748878696154974}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  m_onStopUsing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4819748878696154974}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_givenDebug: {fileID: 0}
+  m_resultDebug: {fileID: 0}
+  m_lastProcessTimeInTicksEstimation: 0
+  m_processName: A deer view
+  m_processOneLinerDescription: Simulate what a deer see in the jungle.
+  m_processShortDescription: "The classic tiger is orange, but deer don\u2019t see
+    it. This helps illustrate natural selection from the prey\u2019s perspective."
+  m_urlToLearnMoreAboutIt: https://github.com/EloiStree/HelloCameraTelemetryWithUnity/issues/5
+  m_callTextId: CS_DeerTiger
+  m_creditName: Eloi Stree
+  m_creditUrl: https://github.com/EloiStree
+  m_onRequestToProcessTexture:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6074617054864040614}
+        m_TargetAssemblyTypeName: Eloi.TextureUtility.TextureMono_ComputeShaderSourceToResultWH,
+          be.elab.texturetoolbox
+        m_MethodName: SetTextureToUseAndCompute
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

@@ -1,4 +1,4 @@
-using Eloi.WatchAndDate;
+
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,7 +24,7 @@ namespace Eloi.TextureUtility
 
         public Vector2Int[] foundPixels;
 
-        public WatchAndDateTimeActionResult timeToProcess;
+        public Texture_WatchAndDateTimeObserver timeToProcess;
 
         void Start()
         {

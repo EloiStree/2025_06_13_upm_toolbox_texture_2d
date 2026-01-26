@@ -70,3 +70,4 @@ public class TextureMono_RenderTextureToNativeColor32 : MonoBehaviour
         }
     }
 }
+

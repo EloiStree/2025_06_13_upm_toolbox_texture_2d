@@ -1,6 +1,5 @@
 
 using System;
-using Eloi.WatchAndDate;
 using UnityEngine.Events;
 
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace Eloi.TextureUtility
         public RenderTexture m_result;
         public UnityEvent<RenderTexture> m_onCreated;
         public UnityEvent<RenderTexture> m_onUpdated;
-        public WatchAndDateTimeActionResult m_computeTime;
+        public Texture_WatchAndDateTimeObserver m_computeTime;
 
         public bool m_useUpdate = false;
         public bool m_useOnEnable = true;

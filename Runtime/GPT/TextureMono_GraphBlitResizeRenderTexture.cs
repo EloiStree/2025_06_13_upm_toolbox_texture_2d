@@ -1,69 +1,123 @@
+using Eloi.TextureUtility;
 using UnityEngine;
 using UnityEngine.Events;
 
 
+
+/// <summary>
+/// NOT TESTED YET
+/// </summary>
 public class TextureMono_GraphBlitResizeRenderTexture : MonoBehaviour
 {
-    public RenderTexture m_source;
-    public RenderTexture m_result;
+    [Header("Input / Output")]
+    [SerializeField] private RenderTexture m_source;
+    [SerializeField] private RenderTexture m_result;
 
-    public int m_wantedWidth = 1280;
-    public int m_wantedHeight = 930;
+    [Header("Target Size")]
+    [SerializeField] private int m_targetWidth = 1280;
+    [SerializeField] private int m_targetHeight = 930;
+
+    [Header("Behaviour")]
+    [SerializeField] private bool m_blitEveryFrame;
+
     public UnityEvent<RenderTexture> m_onCreated;
     public UnityEvent<RenderTexture> m_onUpdated;
-    public bool m_useUpdate;
+
+    private RenderTextureDescriptor currentDescriptor;
+    public Texture_WatchAndDateTimeObserver m_timeToBlit;
 
     private void Awake()
     {
-        SetRenderTexture(m_source);
-    }
-
-    public void SetRenderTexture(RenderTexture source)
-    {
-        if (source == null)
-        {
-            m_result = null;
-            m_source = null;
-            return;
-        }
-
-        if (m_result != null)
-        {
-            if (m_result.width != m_wantedWidth || m_result.height != m_wantedHeight ||
-                m_result.format != source.format)
-            {
-                m_result.Release();
-                DestroyImmediate(m_result);
-                m_result = null;
-            }
-        }
-
-        if (m_result == null)
-        {
-            m_result = new RenderTexture(source.descriptor);
-            m_result.width = m_wantedWidth;
-            m_result.height = m_wantedHeight;
-            m_result.Create();
-            m_onCreated?.Invoke(m_result);
-        }
-
-        m_source = source;
+        TryCreateResult();
     }
 
     private void Update()
     {
-        if (m_useUpdate)
-            ResizeUpdate();
-    }
-
-    public void ResizeUpdate()
-    {
-        if (m_source != null && m_result != null)
+        if (m_blitEveryFrame)
         {
-            Graphics.Blit(m_source, m_result);
-            m_onUpdated?.Invoke(m_result);
+            Blit();
         }
     }
+
+    public void SetSource(RenderTexture newSource)
+    {
+        if (m_source == newSource)
+            return;
+
+        m_source = newSource;
+        TryCreateResult();
+    }
+
+    public void SetAndResizeTexture(RenderTexture source)
+    {
+            SetSource(source);
+            Blit();
+    }
+
+    public void SetTargetSize(int width, int height)
+    {
+        if (m_targetWidth == width && m_targetHeight == height)
+            return;
+
+        m_targetWidth = width;
+        m_targetHeight = height;
+        TryCreateResult();
+    }
+
+    private void TryCreateResult()
+    {
+        if (m_source == null)
+        {
+            ReleaseResult();
+            return;
+        }
+
+        var desiredDescriptor = m_source.descriptor;
+        desiredDescriptor.width = m_targetWidth;
+        desiredDescriptor.height = m_targetHeight;
+        desiredDescriptor.useMipMap = false;
+        desiredDescriptor.autoGenerateMips = false;
+
+        // Only recreate if m_result is null or the size/descriptor is different
+        if (m_result != null &&
+            m_result.width == desiredDescriptor.width &&
+            m_result.height == desiredDescriptor.height &&
+            currentDescriptor.Equals(desiredDescriptor))
+        {
+            return;
+        }
+
+        ReleaseResult();
+
+        currentDescriptor = desiredDescriptor;
+        m_result = new RenderTexture(currentDescriptor);
+        m_result.Create();
+
+        m_onCreated?.Invoke(m_result);
+    }
+
+    public void Blit()
+    {
+        m_timeToBlit.StartCounting();
+        if (m_source == null || m_result == null)
+            return;
+        Graphics.Blit(m_source, m_result);
+        m_timeToBlit.StopCounting();
+        m_onUpdated?.Invoke(m_result);
+    }
+
+    private void ReleaseResult()
+    {
+        if (m_result == null)
+            return;
+
+        m_result.Release();
+        Destroy(m_result);
+        m_result = null;
+    }
+
+    private void OnDestroy()
+    {
+        ReleaseResult();
+    }
 }
-
-

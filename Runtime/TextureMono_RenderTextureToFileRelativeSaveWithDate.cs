@@ -23,6 +23,12 @@ namespace Eloi.TextureUtility {
                 System.IO.Directory.Delete(path, true);
             }
         }
+
+        [ContextMenu("Open Peristent Data Folder")]
+        public void OpenPeristentDataFolder()
+        {
+            UnityEngine.Application.OpenURL(Application.persistentDataPath);
+        }
         public void SetRenderTexture(RenderTexture renderTexture)
         {
             m_renderTexture = renderTexture;

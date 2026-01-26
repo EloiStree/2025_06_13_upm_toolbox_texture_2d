@@ -25,10 +25,13 @@ namespace Eloi.TextureUtility
             public Material m_material;
             public RenderTexture m_renderTexture;
             public UnityEvent<RenderTexture> m_onRenderTextureCreated;
+            public Texture_WatchAndDateTimeObserver m_processTime;
         }
 
         public RenderTexture m_result;
         public UnityEvent<RenderTexture> m_onBlitsComputed;
+        public Texture_WatchAndDateTimeObserver m_processTime;
+
         public bool m_useUpdate = false;
         public bool m_createMaterialCopyAtAwake;
         private void Awake()
@@ -52,6 +55,13 @@ namespace Eloi.TextureUtility
             Cleanup();
             InitializeRenderTargets();
         }
+
+        public void SetAndProcessSourceTexture(Texture sourceTexture)
+        {
+            m_sourceTexture = sourceTexture;
+            InitializeRenderTargets();
+            ApplyShaders();
+        }
         private void InitializeRenderTargets()
         {
             if (m_sourceTexture == null)
@@ -63,7 +73,11 @@ namespace Eloi.TextureUtility
             for (int i = 0; i < m_shaderGraphToApply.Count; i++)
             {
                 if (m_shaderGraphToApply[i].m_renderTexture != null)
+                {
+                    if (RenderTexture.active == m_shaderGraphToApply[i].m_renderTexture)
+                        RenderTexture.active = null;
                     m_shaderGraphToApply[i].m_renderTexture.Release();
+                }
 
                 m_shaderGraphToApply[i].m_renderTexture = new RenderTexture(currentWidth, currentHeight, 0, m_textureFormat);
                 m_shaderGraphToApply[i].m_renderTexture.filterMode = FilterMode.Point;
@@ -78,12 +92,14 @@ namespace Eloi.TextureUtility
         {
             if (m_sourceTexture == null || m_shaderGraphToApply.Count == 0)
                 return;
+            m_processTime.StartCounting();
             m_result = null;
             for (int i = 0; i < m_shaderGraphToApply.Count; i++)
             {
                 if (m_shaderGraphToApply[i].m_material == null)
                     continue;
-                
+                m_shaderGraphToApply[i].m_processTime.StartCounting();
+
                 Texture from = i == 0 ? m_sourceTexture : m_shaderGraphToApply[i - 1].m_renderTexture;
                 MaterialToRenderTexture selected = m_shaderGraphToApply[i];
 
@@ -107,10 +123,13 @@ namespace Eloi.TextureUtility
                     // Ensure the render texture is active and updated
                     selected.m_renderTexture.DiscardContents();
                 m_result = selected.m_renderTexture;
+                m_shaderGraphToApply[i].m_processTime.StopCounting();
             }
 
+            m_processTime.StopCounting();
             if (m_result != null)
                 m_onBlitsComputed.Invoke(m_result);
+
         }
 
 
