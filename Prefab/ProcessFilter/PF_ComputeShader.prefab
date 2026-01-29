@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1607551330262070600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4990254293548507847}
+  - component: {fileID: 5091540296714904836}
+  - component: {fileID: 4272770020506510726}
+  - component: {fileID: 1141067829969733790}
+  m_Layer: 0
+  m_Name: PF_ComputeShader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4990254293548507847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607551330262070600}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.41038, y: -0, z: 0.7096}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5091540296714904836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607551330262070600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12c8b975323c2546bcc1e71405bd34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: be.elab.texturetoolbox::TextureMono_ProcessFilterDocumentationFromTextAsset
+  m_textAssetSource: {fileID: 0}
+  m_processFilterTextInfo:
+    m_processName: 
+    m_processOneLiner: 
+    m_urlToLearnMoreAboutIt: 
+    m_callTextId: 
+    m_creatorName: 
+    m_creatorContactUrl: 
+    m_processDescription: 
+--- !u!114 &4272770020506510726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607551330262070600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80fe711fd57560f4683704ddbc2711a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: be.elab.texturetoolbox::Eloi.TextureUtility.TextureMono_NoParamsComputeShaderProcessOnRenderTexture
+  m_events:
+    m_onSetGivenTexture:
+      m_PersistentCalls:
+        m_Calls: []
+    m_onResultProcessed:
+      m_PersistentCalls:
+        m_Calls: []
+    m_onStartUsing:
+      m_PersistentCalls:
+        m_Calls: []
+    m_onStopUsing:
+      m_PersistentCalls:
+        m_Calls: []
+  m_givenDebug: {fileID: 0}
+  m_resultDebug: {fileID: 0}
+  m_lastProcessTimeInTicksEstimation: 0
+  m_processWithComputeShader: {fileID: 1141067829969733790}
+--- !u!114 &1141067829969733790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607551330262070600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 552695eb436569f469ed2a11c4b5482c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: be.elab.texturetoolbox::Eloi.TextureUtility.TextureMono_ComputeShaderSourceToResultWH
+  m_useTheComputeShader: 1
+  m_computeShaderToApply: {fileID: 7200000, guid: 13ceedf3549fe6a4c9e2df6db5e1f417, type: 3}
+  m_source: {fileID: 0}
+  m_result: {fileID: 0}
+  m_onCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_computeTime:
+    m_watchTimeInTick: 0
+    m_watchTimeInMilliseconds: 0
+    m_dateTimeInTick: 0
+    m_dateTimeInMilliseconds: 0
+    m_events:
+      m_watchTicks:
+        m_PersistentCalls:
+          m_Calls: []
+      m_dateTimeTicks:
+        m_PersistentCalls:
+          m_Calls: []
+  m_useUpdate: 0
+  m_useOnEnable: 1
+  m_ignoreException: 0

@@ -3,11 +3,10 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace Eloi.TextureUtility {
-
-    public class TextureMono_LoopTick : MonoBehaviour
+    public class TextureMono_DelayTick : MonoBehaviour
     {
 
-        public float m_secondsBetweenTicks = 1f;
+        public float m_secondsBeforeTicks = 1f;
         public Coroutine m_runningCoroutine;
         public UnityEvent m_onTick;
         public bool m_tickAtEnable = true;
@@ -23,12 +22,8 @@ namespace Eloi.TextureUtility {
         private IEnumerator TickLoop()
         {
             if (m_tickAtEnable)
-                m_onTick.Invoke();
-            while (true)
-            {
-                yield return new WaitForSeconds(m_secondsBetweenTicks);
+                yield return new WaitForSeconds(m_secondsBeforeTicks);
                 m_onTick.Invoke();
             }
         }
-    }
 }

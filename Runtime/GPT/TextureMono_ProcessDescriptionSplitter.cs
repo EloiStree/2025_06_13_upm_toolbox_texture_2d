@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.Events;
 namespace Eloi.TextureUtility
 {
+
+  
     public class TextureMono_ProcessDescriptionSplitter : MonoBehaviour {
 
-        public TextureMono_AbstractProcessRenderTextureWithInfo m_process;
         public UnityEvent<string> m_onProcessName;
         public UnityEvent<string> m_onOneLiner;
         public UnityEvent<string> m_onDescription;
@@ -15,28 +16,24 @@ namespace Eloi.TextureUtility
         public UnityEvent<string> m_onProcessTimeInTicks;
 
 
-        public bool m_pushOnEnable = true;
-        private void OnEnable()
+
+        public TextureMono_AbstractProcessFilterDocumentation m_source;
+
+
+        [ContextMenu("Open Url")]
+        public void OpenUrl()
         {
-            if (m_pushOnEnable)
-                PushIn(m_process);
-        }
-        public void Update()
-        {
-            if (m_process != null)
-            {
-                UpdateTickInfo();
-            }
+            if (m_source == null)
+                return;
+            m_source.GetProcessLearnMoreUrl(out string url);
+            if (string.IsNullOrEmpty(url))
+                return;
+            Application.OpenURL(url);
         }
 
-        private void UpdateTickInfo()
+        public void PushIn(TextureMono_AbstractProcessFilterDocumentation process)
         {
-            m_process.GetLastProcessTimeInTicks(out long ticks);
-            m_onProcessTimeInTicks?.Invoke(ticks.ToString());
-        }
-
-        public void PushIn(TextureMono_AbstractProcessRenderTextureWithInfo process)
-        {
+            m_source = process;
             if (process == null) {
 
                 m_onProcessName?.Invoke("");
@@ -49,22 +46,21 @@ namespace Eloi.TextureUtility
                 m_onProcessTimeInTicks?.Invoke("0");
                 return;
             }
-            m_process = process;
-            m_process.GetProcessName(out string name);
+            process.GetProcessName(out string name);
             m_onProcessName?.Invoke(name);
-            m_process.GetProcessOneLiner(out string oneLiner);
+            process.GetProcessOneLiner(out string oneLiner);
             m_onOneLiner?.Invoke(oneLiner);
-            m_process.GetProcessDescription(out string description);
+            process.GetProcessDescription(out string description);
             m_onDescription?.Invoke(description);
-            m_process.GetProcessLearnMoreUrl(out string url);
+            process.GetProcessLearnMoreUrl(out string url);
             m_onLearnMoreUrl?.Invoke(url);
-            m_process.GetCallTextId(out string id);
+            process.GetCallTextId(out string id);
             m_onCallId?.Invoke(id);
-            m_process.GetCreditName(out string creditName);
+            process.GetCreditName(out string creditName);
             m_onCreditName?.Invoke(creditName);
-            m_process.GetCreditUrl(out string creditUrl);
+            process.GetCreditUrl(out string creditUrl);
             m_onCreditUrl?.Invoke(creditUrl);
-            UpdateTickInfo();
+            
 
         }
     }

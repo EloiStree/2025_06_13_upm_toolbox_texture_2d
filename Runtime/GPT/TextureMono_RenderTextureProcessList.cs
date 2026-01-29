@@ -3,18 +3,19 @@ using UnityEngine;
 using UnityEngine.Events;
 namespace Eloi.TextureUtility
 {
-    public class TextureMono_RenderTextureProcessList : TextureMono_AbstractProcessRenderTextureWithInfo
+    public class TextureMono_RenderTextureProcessList : TextureMono_AbstractNoParamsProcessOnRenderTexture
     {
 
         [SerializeField]
-        private TextureMono_AbstractProcessRenderTextureWithInfo[] m_processes;
+        private TextureMono_AbstractNoParamsProcessOnRenderTexture[] m_processes;
         public int m_counter = 0;
         public bool m_counterLoop = false;
 
-        public TextureMono_AbstractProcessRenderTextureWithInfo m_currentFocus;
+        public TextureMono_AbstractNoParamsProcessOnRenderTexture m_currentFocus;
         public bool m_useUpdateToProcess = false;
 
-        public UnityEvent<TextureMono_AbstractProcessRenderTextureWithInfo> m_onCurrentFocusChanged;
+        public UnityEvent<TextureMono_AbstractNoParamsProcessOnRenderTexture> m_onCurrentProcessFocusChanged;
+        public UnityEvent<TextureMono_AbstractProcessFilterDocumentation> m_onCurrentDocumentationFocusChanged;
 
         private RenderTexture m_lastGivenRenderTexture;
         public bool m_autoCompleteAtAwakeWithChildren = true;
@@ -53,11 +54,16 @@ namespace Eloi.TextureUtility
                 m_counter = m_processes.Length - 1;
 
             m_currentFocus = m_processes[m_counter];
-            if (m_currentFocus == null)
+            if (m_currentFocus == null) { 
+                m_onCurrentDocumentationFocusChanged.Invoke(null);
                 return;
+            }
             m_currentFocus.StartUsing();
             m_currentFocus.SetGivenTexture(m_lastGivenRenderTexture);
-            m_onCurrentFocusChanged.Invoke(m_currentFocus);
+            m_onCurrentProcessFocusChanged.Invoke(m_currentFocus);
+            TextureMono_AbstractProcessFilterDocumentation doc = m_currentFocus.GetComponentInChildren<TextureMono_AbstractProcessFilterDocumentation>();
+            m_onCurrentDocumentationFocusChanged.Invoke(doc);
+            
         }
 
         public void SetIndex(int index)
@@ -69,48 +75,7 @@ namespace Eloi.TextureUtility
             m_counter = index;
             SetCurrentFocusFromIndex();
         }
-        public void SetIndexFromCallId(string callId)
-        {
-            for (int i = 0; i < m_processes.Length; i++)
-            {
-                string id;
-                m_processes[i].GetCallTextId(out id);
-                if (id == callId)
-                {
-                    m_counter = i;
-                    SetCurrentFocusFromIndex();
-                    return;
-                }
-            }
-        }
-        public void SetIndexFromExactProcessName(string processName)
-        {
-            for (int i = 0; i < m_processes.Length; i++)
-            {
-                string name;
-                m_processes[i].GetProcessName(out name);
-                if (name == processName)
-                {
-                    m_counter = i;
-                    SetCurrentFocusFromIndex();
-                    return;
-                }
-            }
-        }
-        public void SetIndexFromContainsInProcessName(string processNamePart)
-        {
-            for (int i = 0; i < m_processes.Length; i++)
-            {
-                string name;
-                m_processes[i].GetProcessName(out name);
-                if (name.Contains(processNamePart))
-                {
-                    m_counter = i;
-                    SetCurrentFocusFromIndex();
-                    return;
-                }
-            }
-        }
+
         [ContextMenu("Incress Index")]
         public void IncreaseIndex()
         {
@@ -137,7 +102,7 @@ namespace Eloi.TextureUtility
             }
             SetCurrentFocusFromIndex();
         }
-        public void GetProcesses(out TextureMono_AbstractProcessRenderTextureWithInfo[] processes)
+        public void GetProcesses(out TextureMono_AbstractNoParamsProcessOnRenderTexture[] processes)
         {
             processes = m_processes;
         }
@@ -182,50 +147,6 @@ namespace Eloi.TextureUtility
                 textureRenderer = null;
         }
 
-        public override void GetCallTextId(out string id)
-        {
-            SetCurrentFocusFromIndex();
-            if (m_currentFocus != null)
-                m_currentFocus.GetCallTextId(out id);
-            else
-                id = "";
-       }
-
-        public override void GetProcessName(out string name)
-        {
-            SetCurrentFocusFromIndex();
-            if (m_currentFocus != null)
-                m_currentFocus.GetProcessName(out name);
-            else
-                name = "";
-        }
-
-        public override void GetProcessOneLiner(out string oneLiner)
-        {
-            SetCurrentFocusFromIndex();
-            if (m_currentFocus != null)
-                m_currentFocus.GetProcessOneLiner(out oneLiner);
-            else
-                oneLiner = "";
-        }
-
-        public override void GetProcessDescription(out string description)
-        {
-            SetCurrentFocusFromIndex();
-            if (m_currentFocus != null)
-                m_currentFocus.GetProcessDescription(out description);
-            else
-                description = "";
-        }
-
-        public override void GetProcessLearnMoreUrl(out string url)
-        {
-            SetCurrentFocusFromIndex();
-            if (m_currentFocus != null)
-                m_currentFocus.GetProcessLearnMoreUrl(out url);
-            else
-                url = "";
-        }
 
 
         private void Awake()
@@ -244,26 +165,16 @@ namespace Eloi.TextureUtility
         [ContextMenu("Auto Complete Process With Childrent")]
         public void AutoCompleteProcessWithChildren()
         {
-            m_processes = GetComponentsInChildren<TextureMono_AbstractProcessRenderTextureWithInfo>();
+            m_processes = GetComponentsInChildren<TextureMono_AbstractNoParamsProcessOnRenderTexture>(true);
             m_processes = m_processes.Where(item => item != this).ToArray();
         }
 
-        public override void GetCreditUrl(out string url)
+        public override void StartUsingCode()
         {
-            SetCurrentFocusFromIndex();
-            if (m_currentFocus != null)
-                m_currentFocus.GetCreditUrl(out url);
-            else
-                url = "";
         }
 
-        public override void GetCreditName(out string name)
+        public override void StopUsingCode()
         {
-            SetCurrentFocusFromIndex();
-            if (m_currentFocus != null)
-                m_currentFocus.GetCreditName(out name);
-            else
-                name = "";
         }
     }
 }
