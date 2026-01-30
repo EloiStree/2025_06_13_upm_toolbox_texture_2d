@@ -84,16 +84,26 @@ namespace Eloi.TextureUtility
                 m_computeShaderToApply.SetTexture(kernelIndex, "m_result", m_result);
                 // Most advance shader will need width and some time the height.
                 m_computeShaderToApply.SetInt("m_width", m_source.width);
-                m_computeShaderToApply.SetInt("m_height", m_source.height);
 
-                try {
-                    // Some will need time for randomness or for continuity
-                    m_computeShaderToApply.SetFloat("m_time", Time.timeSinceLevelLoad);
+                try
+                {
+                    m_computeShaderToApply.SetInt("m_height", m_source.height);
                 }
                 catch (Exception) { }
-                // To avoid making width*height 200000 times in the shader we precompute it here
-                // You can precompute some other value here if needed by your shader
-                m_computeShaderToApply.SetInt("m_pixelCount", m_source.width * m_source.height);
+
+                try
+                {
+                    // Some will need time for randomness or for continuity
+                    m_computeShaderToApply.SetFloat("m_time", Time.timeSinceLevelLoad);
+                }catch (Exception) { }
+                    // To avoid making width*height 200000 times in the shader we precompute it here
+                    // You can precompute some other value here if needed by your shader
+
+                try
+                {
+                        m_computeShaderToApply.SetInt("m_pixelCount", m_source.width * m_source.height);
+                }
+                catch (Exception) { }
 
                 // We cut the work in 8x8 pixel chunks and make the GPU work on all chunk in parallel
                 int threadGroupsX = Mathf.CeilToInt(m_source.width / 8.0f);

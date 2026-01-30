@@ -34,18 +34,14 @@ namespace Eloi.TextureUtility
         public void PushIn(TextureMono_AbstractProcessFilterDocumentation process)
         {
             m_source = process;
-            if (process == null) {
-
-                m_onProcessName?.Invoke("");
-                m_onOneLiner?.Invoke("");
-                m_onDescription?.Invoke("");
-                m_onLearnMoreUrl?.Invoke("");
-                m_onCallId?.Invoke("");
-                m_onCreditName?.Invoke("");
-                m_onCreditUrl?.Invoke("");
-                m_onProcessTimeInTicks?.Invoke("0");
-                return;
-            }
+            m_onProcessName?.Invoke("");
+            m_onOneLiner?.Invoke("");
+            m_onDescription?.Invoke("");
+            m_onLearnMoreUrl?.Invoke("");
+            m_onCallId?.Invoke("");
+            m_onCreditName?.Invoke("");
+            m_onCreditUrl?.Invoke("");
+            m_onProcessTimeInTicks?.Invoke("0");
             process.GetProcessName(out string name);
             m_onProcessName?.Invoke(name);
             process.GetProcessOneLiner(out string oneLiner);
