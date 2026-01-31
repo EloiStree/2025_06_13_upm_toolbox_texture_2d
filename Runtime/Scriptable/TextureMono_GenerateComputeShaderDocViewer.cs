@@ -10,6 +10,11 @@ namespace Eloi.TextureUtility {
         public UnityEvent m_onFinishCreation;
         public string m_nameFormatter = "CS_DOC_{0}";
 
+        public void Awake()
+        {
+            if (m_whereToCreate == null)
+                m_whereToCreate = this.transform;
+        }
         public void PushIn(DocumentedComputeShaderScritable[] scritables)
         {
             foreach (DocumentedComputeShaderScritable s in scritables)
